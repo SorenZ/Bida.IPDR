@@ -3,10 +3,10 @@
 
 The system contains a **Console Application** for operation and a **Web Application** for monitoring.  
 ### The Console Application:
- **Data Ingestion Process**
- *It provides a mechanism to validate the data files and prepare them for the next pipeline.*
- The process executes as systemd service:
- ```bash
+**Data Ingestion Process**
+*It provides a mechanism to validate the data files and prepare them for the next pipeline.*
+The process executes as systemd service:
+```ini
 [Unit]  
 Description=BiDA IPDR File Process service  
   
@@ -36,9 +36,9 @@ Environment=DOTNET_ROOT=/opt/rh/rh-dotnet31/root/usr/lib64/dotnet
   
 [Install]  
 WantedBy=multi-user.target
- ```
- The process's execution scheduling is it starts every day at 8:00 AM and stopped at 1:00 PM.
- ```bash
+```
+The process's execution scheduling is it starts every day at 8:00 AM and stopped at 1:00 PM.
+```bash
 00 08 * * * /bin/systemctl start fileProcess.service
 00 01 * * * /bin/systemctl stop fileProcess.service
  ```
@@ -63,7 +63,45 @@ The process execution scheduling starts every day at 12:00 AM.
 00 12 * * * cd /home/bida/ipdr/app/ && ./Bida.Ipdr.App FolderRemove
 ```
 ### The Web Application:
+*It provides monitoring (and details log) system for all described pipelines above.*
+![IPDR Monitoring](https://github.com/SorenZ/Bida.IPDR/blob/main/Bida-IPDR.png?raw=true)
 
+The process executes as systemd service:
+```ini
+[Unit]  
+Description=BIDA IPDR web site  
+  
+[Service]  
+Type=notify  
+# will set the Current Working Directory (CWD)  
+WorkingDirectory=/home/bida/ipdr/web/  
+# systemd will run this executable to start the service  
+ExecStart=/home/bida/ipdr/web/Bida.Ipdr.Web --urls "http://*:8080"  
+# to query logs using journalctl, set a logical name here SyslogIdentifier=ipdrSite  
+  
+# Use your username to keep things simple, for production scenario's I recommend a dedicated user/group.  
+# If you pick a different user, make sure dotnet and all permissions are set correctly to run the app.  
+# To update permissions, use 'chown yourusername -R /srv/AspNetSite' to take ownership of the folder and files,  
+#       Use 'chmod +x /srv/AspNetSite/AspNetSite' to allow execution of the executable file.  
+User=bida  
+  
+# ensure the service restarts after crashing  
+Restart=always  
+# amount of time to wait before restarting the service RestartSec=60  
+  
+# copied from dotnet documentation at  
+# https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-3.1#code-try-7  
+KillSignal=SIGINT  
+Environment=ASPNETCORE_ENVIRONMENT=Production  
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false  
+  
+# This environment variable is necessary when dotnet isn't loaded for the specified user.  
+# To figure out this value, run 'env | grep DOTNET_ROOT' when dotnet has been loaded into your shell.  
+Environment=DOTNET_ROOT=/opt/rh/rh-dotnet31/root/usr/lib64/dotnet  
+  
+[Install]  
+WantedBy=multi-user.target
+```
 
 
 > Written with [StackEdit](https://stackedit.io/).
