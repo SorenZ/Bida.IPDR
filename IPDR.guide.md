@@ -1,4 +1,4 @@
-# Bida IPDR Guide 
+# Bida IPDR Operation Guide 
 *The system's goal is to validate and import raw data into data warehouse and show appropriate monitoring of the progress.*  
 
 The system contains a **Console Application** for operation and a **Web Application** for monitoring.  
