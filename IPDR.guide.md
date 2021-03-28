@@ -2,7 +2,11 @@
 *The system's goal is to validate and import raw data into data warehouse and show appropriate monitoring of the progress.*  
 
 The system contains a **Console Application** for operation and a **Web Application** for monitoring.  
+
+> The application binaries are available in `/home/bida/ipdr` path.
+
 ### The Console Application:
+
 **Data Ingestion Process**
 *It provides a mechanism to validate the data files and prepare them for the next pipeline.*
 The process executes as systemd service:
@@ -104,7 +108,7 @@ Environment=DOTNET_ROOT=/opt/rh/rh-dotnet31/root/usr/lib64/dotnet
 WantedBy=multi-user.target
 ```
 
-> All described services and processes are guarded against OS reset.
-> All detail logs are preserve at `/home/bida/ipdr/app/logs` 
-> Written with [StackEdit](https://stackedit.io/).
+> All described services and processes are guarded against OS reset.  
+> All detail logs are preserve at `/home/bida/ipdr/app/logs`   
+> Written with [StackEdit](https://stackedit.io/).  
 
