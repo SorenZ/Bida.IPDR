@@ -64,6 +64,7 @@ The process execution scheduling starts every day at 12:00 AM.
 ```
 ### The Web Application:
 *It provides monitoring (and details log) system for all described pipelines above.*
+
 ![IPDR Monitoring](https://github.com/SorenZ/Bida.IPDR/blob/main/Bida-IPDR.png?raw=true)
 
 The process executes as systemd service:
@@ -103,5 +104,7 @@ Environment=DOTNET_ROOT=/opt/rh/rh-dotnet31/root/usr/lib64/dotnet
 WantedBy=multi-user.target
 ```
 
-
+> All described services and processes are guarded against OS reset.
+> All detail logs are preserve at `/home/bida/ipdr/app/logs` 
 > Written with [StackEdit](https://stackedit.io/).
+
