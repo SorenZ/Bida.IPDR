@@ -65,7 +65,32 @@ The process execution scheduling starts every day at 2:00 AM and usually takes u
 The process execution scheduling starts every day at 12:00 AM.
 ```bash
 00 12 * * * cd /home/bida/ipdr/app/ && ./Bida.Ipdr.App FolderRemove
-```
+```   
+   
+**App Deployment**
+Go to the project root folder
+```bash
+/home/hamed/source/BiDA/BiDA.IPDR/src/Bida.Ipdr.App
+```   
+Run *Publish* command
+```bash
+dotnet publish Bida.Ipdr.App.csproj --configuration Release --framework netcoreapp3.1 --output bin/publish
+```   
+Go to the *Release* (bin/publish) folder and copy the new published file into the project's folder of the server.
+```bash
+-rw-rw-r--  1 hamed hamed 122K Jun  8 06:20 Bida.Ipdr.App.deps.json
+-rwxr-xr-x  1 hamed hamed  89K Jun  8 06:20 Bida.Ipdr.App
+-rw-rw-r--  1 hamed hamed  25K Jun  8 06:20 Bida.Ipdr.App.dll
+-rw-rw-r--  1 hamed hamed  18K Jun  8 06:20 Bida.Ipdr.App.pdb
+-rw-rw-r--  1 hamed hamed  146 Jun  8 06:19 Bida.Ipdr.App.runtimeconfig.json
+-rw-rw-r--  1 hamed hamed  49K Jun  8 06:19 Bida.Ipdr.Data.dll
+-rw-rw-r--  1 hamed hamed  23K Jun  8 06:19 Bida.Ipdr.Data.pdb
+-rw-rw-r--  1 hamed hamed  24K Jun  8 06:19 Bida.Ipdr.Common.dll
+-rw-rw-r--  1 hamed hamed  16K Jun  8 06:19 Bida.Ipdr.Common.pdb
+-rw-rw-r--  1 hamed hamed  938 May 21 00:56 appsettings.json
+```  
+*Consider stopping the `fileProcess` service before deployment.*
+
 ### The Web Application:
 *It provides monitoring (and details log) system for all described pipelines above.*
 
