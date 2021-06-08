@@ -68,7 +68,7 @@ The process execution scheduling starts every day at 12:00 AM.
 ```   
    
 **App Deployment**  
-Go to the project root folder   
+Go to the project's root folder   
 ```bash
 /home/hamed/source/BiDA/BiDA.IPDR/src/Bida.Ipdr.App
 ```   
@@ -131,7 +131,33 @@ Environment=DOTNET_ROOT=/opt/rh/rh-dotnet31/root/usr/lib64/dotnet
   
 [Install]  
 WantedBy=multi-user.target
-```
+```   
+
+**Site Deployment**  
+Go to the project's root folder   
+```bash
+/home/hamed/source/BiDA/BiDA.IPDR/src/Bida.Ipdr.Web
+```   
+Run *Publish* command   
+```bash
+dotnet publish Bida.Ipdr.Web.csproj --configuration Release --framework netcoreapp3.1 --output bin/publish
+```   
+Go to the *Release* (bin/publish) folder and copy the new published file into the project's folder of the server   
+```bash
+-rw-rw-r--  1 hamed hamed  489 Jun  8 07:37 web.config
+-rw-rw-r--  1 hamed hamed 238K Jun  8 07:37 Bida.Ipdr.Web.deps.json
+-rw-rw-r--  1 hamed hamed  299 Jun  8 07:37 Bida.Ipdr.Web.runtimeconfig.json
+-rw-rw-r--  1 hamed hamed  79K Jun  8 07:37 Bida.Ipdr.Web.Views.dll
+-rw-rw-r--  1 hamed hamed  25K Jun  8 07:37 Bida.Ipdr.Web.Views.pdb
+-rwxr-xr-x  1 hamed hamed  89K Jun  8 07:37 Bida.Ipdr.Web
+-rw-rw-r--  1 hamed hamed  20K Jun  8 07:37 Bida.Ipdr.Web.dll
+-rw-rw-r--  1 hamed hamed  24K Jun  8 07:37 Bida.Ipdr.Web.pdb
+-rw-rw-r--  1 hamed hamed  49K Jun  8 06:19 Bida.Ipdr.Data.dll
+-rw-rw-r--  1 hamed hamed  23K Jun  8 06:19 Bida.Ipdr.Data.pdb
+-rw-rw-r--  1 hamed hamed  24K Jun  8 06:19 Bida.Ipdr.Common.dll
+-rw-rw-r--  1 hamed hamed  16K Jun  8 06:19 Bida.Ipdr.Common.pdb
+```  
+*Consider stopping the `ipdrSite` service before deployment.*  
 
 > All described services and processes are guarded against OS reset.  
 > All detail logs are preserve at `/home/bida/ipdr/app/logs`   
